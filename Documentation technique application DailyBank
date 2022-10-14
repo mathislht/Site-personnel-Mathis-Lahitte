@@ -1,0 +1,285 @@
+[.text-center]
+== Documentation Technique V1
+
+-
+
+Straputicari Luca 
+
+-
+
+Mathis Lahitte
+
+-
+
+Anthony Rimbon
+
+-
+
+Badr Mimouni
+
+-
+
+
+
+
+[.text-center]
+== Présentation de l’Application
+
+****
+La banque BankUniv souhaite développer une +
+application JAVA-Oracle de gestion des comptes +
+clients pour remplacer plusieurs outils obsolètes. +
+Ce développement s’inscrit dans le cadre de la +
+restructuration de ses services bancaires et +
+l’application sera déployée dans les 100 agences +
+que compte son réseau.
+****
+ 
+== Répartition des fonctionnalités par programmeur
+ 
+****
+Straputicari Luca : +
+Créditer 
+ 
+Mathis Lahitte : +
+Transférer 
+ 
+Anthony Rimbon : +
+Créer Compte +
+Rendre inactif un client
+ 
+Badr Mimouni : +
+Clôturer Compte
+****
+
+== Comment installer l'application 
+Il faudra pour cela télécharger le jar de l’application double clicker dessus et l’application sera lancée. Il faut avoir une version de java installé sur le pc ou l’on télécharge l’application dans le cas ou vous n’avez pas de java installé sur votre machine cliquez ici : https://www.java.com/fr/download/manual.jsp
+
+== Comment lancer le jar 
+
+     
+
+== 1.1 Use Case global de l’application 
+image::usecase.png[use_case, 400(largeur), auto(100)]
+
+Il existe alors deux *types* d’utilisateurs dans l’application :
+
+Le guichetier et le chef d’agence
+
+Le guichetier ou encore l’employé peut réaliser ces opérations
+ci-dessous :
+
+Modifier informations client (adresse, téléphone, …)
+
+Créer un nouveau client
+
+Consulter un compte
+
+Débiter un compte (BD)
+
+Puis le chef d’agence héritant des opérations du guichetier mais en plus
+peut rendre inactif un client
+
+
+== 1.2 Diagramme de classe des données global(BD)
+
+image::diagramme.png[use_case, 400(largeur), auto(100)]
+
+Une agence bancaire dispose de plusieurs employés
+
+Un employé peut être un chef d’agence ou un guichetier selon les droits
+d’accès qu’il possède
+
+Une agence bancaire est composée de un ou plusieurs clients.
+
+Un client possède un ou plusieurs CompteCourant qu’il est possible de
+modifier.
+
+Un client peut etre inactif.
+
+Un client peut effectuer des opérations sur un compte par
+l’intermédiaire des employés (débit, crédit, emprunt).
+
+Un compte contient des informations auxquelles il est possible
+d’accéder.
+
+Toutes les opérations sont définies par un TypeOperation
+
+== Architecture
+
+
+
+
+=== 2.1 Architecture générale (poste client, serveurs, …) et rôle de chaque élément 
+****
+Les clients exécutent l’applciation DailyBank et se connectent à la base
+de données oracle afin de manipuler directement les données de la base.
+****
+=== 2.2 Ressources externes (.jar, …) utilisées et rôles 
+****
+DailyBank utilise la librairie JavaFX afin de proposer une interface
+graphique.
+
+De plus une base de donnée sous oracle est créée afin de stocker les
+données des comptes, avec la librarie ojdbc6.jar elle réagit aux
+instructions SQL
+****
+=== 2.3 Structuration en packages de l’application documentée. Principes retenus pour cette structuration 
+
+La structuration de l’application est la suivante : modele view
+controller (MVC) on regroupe aussi les packages en deux catégories :
+****
+_Application_ :
+
+Package tools : Contient contenant les outils de l’application.
+
+Package view : Contient les classes de l’interface graphique
+
+Package control : Contient les fonctionnalités de l’application
+
+_Model_ :
+
+Package data : Contient les classes de données.
+
+Package orm : Contient les classes de gestion des données.
+
+Package orm.exception : Contient les classes d’exceptions.
+****
+== Fonctionnalités V0
+
+
+
+=== 3.1. Modifier les informations d’un client
+****
+Use Case : 
+
+image::usecaseinfos.png[use_case, 300(largeur), auto(100)]
+
+Guichetier - > Modifier infos client
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client , Modification Classe Client
+
+Classes impliquées :
+****
+=== 3.3. Créer un nouveau client (développeur responsable : Anthony Rimbon)
+****
+Use Case :
+
+image::usecasecreerc.png[use_case, 300(largeur), auto(100)]
+
+Guichetier - >Creer un nouveau client
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client , Modification Classe Client
+
+Classes impliquées :
+****
+=== 3.4. Consulter un compte
+****
+Use Case : 
+
+image::usecaseconsulter.png[use_case, 300(largeur), auto(100)]
+
+Guichetier - > Consulter un compte
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client , Modification Aucune
+
+Classes impliquées :
+****
+=== 3.5. Débiter un compte
+****
+Use Case : 
+
+image::usecasedebit.png[use_case, 300(largeur), auto(100)]
+
+Guichetier - > Débiter un compte
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client, lecture CompteCourant,
+Modification Compte Courant
+
+Classes impliquées : OperationsManagementController, OperationsManagement., OperationEditorPane
+****
+=== 3.6. Rendre inactif un client
+****
+Use Case :
+
+image::usecaseinactif.png[use_case, 300(largeur), auto(100)]
+
+Chef d’Agence - > Rendre inactif un client
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client , Modification Classe Client
+
+Classes impliquées :
+****
+
+== Fonctionnalités V1
+
+
+=== 4.1. Créér un compte bancaire
+****
+Use Case : 
+
+image::usecasecreer.png[use_case, 300(largeur), auto(100)]
+
+****
+****
+
+image::usecase1.png[use_case, 300(largeur), auto(100)]
+
+Il faut appuyer sur le bouton ci-dessous situé en bas à droite :
+
+image::nouveaucompte.png[nouveau_compte, (largeur), auto(100)]
+
+La méthode doNouveauCompte va s'enclencher et appeler la fonction creerCompte qui va ouvrir la fenetre et créér le compte en l'ajoutant à la liste. Ensuite la fonction doCompteEditorDialog() récupère les informations et la fonction insertCompteCourant(compte) va ajouter le compte à la base de données.
+
+Guichetier - > Créér un compte
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client, lecture CompteCourant,
+Modification Compte Courant
+
+Classes impliquées : ComptesManagementController, CompteManagement, CompteEditorPane
+****
+
+=== 4.2. Créditer un compte bancaire
+
+****
+Use Case : 
+
+image::usecasecredit.PNG[use_case, 300(largeur), auto(100)]
+
+Il faut appuyer sur le bouton ci-dessous nommé "comptes clients" :
+
+image::usecase1.png[use_case, 300(largeur), auto(100)]
+
+Il faut ensuite appuyer sur "Enregistrer crédit".
+
+image::usecase3.png[nouveau_compte, 300(longeur), auto(100)]
+
+La fenetre suivante s'ouvre et on choisit dans le menu chèques ou espèces
+puis on renseigne le montant et appuie sur "effectuer crédit.
+
+image::usecase4.png[nouveau_compte, 300(longeur), auto(100)]
+
+La méthode doCrédit() va appeler enregistrerCrédit() qui va elle meme appeler la fonction  doOperationEditorDialog(CompteCourant cpte, CategorieOperation cm) faisant elle meme appel a displayDialog(CompteCourant cpte, CategorieOperation mode) qui va afficher l'interface. Ensuite "Effectuer crédit" déclenchera doAjouter() pour d'une part valider le champ et de l'autre enregistrer le crédit.
+
+
+Guichetier - > Créditer un compte
+
+Diagramme de données :
+
+données nécessaires : lecture Classe Client, lecture CompteCourant,
+Modification Compte Courant
+
+Classes impliquées : OperationsManagementController, OperationsManagement., OperationEditorPane
+****
